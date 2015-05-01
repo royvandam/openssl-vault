@@ -1,0 +1,22 @@
+#!/bin/bash
+
+directory="content"
+extension="vault"
+
+if [ -f ${directory}.${extension} ]
+then
+    openssl aes-256-cbc -d -salt -in ${directory}.${extension} -out ${directory}.tar 2>/dev/null
+
+    if [ $? -eq 0 ]
+    then
+        echo "Decompressing... "
+        tar -xzf ${directory}.tar
+    else
+        echo "Invalid password or broken vault"
+    fi
+
+    rm -r ${directory}.tar
+else
+    echo "Vault not found!"
+fi
+

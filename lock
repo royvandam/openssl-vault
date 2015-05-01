@@ -1,0 +1,21 @@
+#!/bin/bash
+
+directory="content"
+extension="vault"
+
+if [ -d ${directory} ]
+then
+    echo "Compressing..."
+    tar -czf ${directory}.tar ${directory}
+
+    openssl aes-256-cbc -salt -in ${directory}.tar -out ${directory}.${extension}
+    if [ $? -eq 0 ]
+    then
+       echo "Purging directory..."
+       srm -m -r ${directory}
+    fi
+
+    echo "Purging archive..."
+    srm -m ${directory}.tar
+fi
+

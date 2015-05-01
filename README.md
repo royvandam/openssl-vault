@@ -1,2 +1,2 @@
 # openssl-vault
-Simple OpenSSL directory encryption
+Simple OpenSSL AES-256 directory encryption
